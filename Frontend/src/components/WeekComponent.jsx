@@ -10,7 +10,11 @@ const weekComponent = ({ meals, setWeeks, week }) => {
     }));
   };
   return (
+    
     <div className="week-container">
+     {meals && meals.length === 0 && (
+  <h1>Add meals to show here in Week.</h1>
+)}
        <div className="meal-list">
         {meals.map(meal => (
           <div key={meal.id} className="meal-item">
