@@ -21,6 +21,7 @@ const App = () => {
     fetch('https://dummyjson.com/recipes')
       .then(res => res.json())
       .then(data => {
+        console.log("response", data)
         setMeals(data.recipes);
         setIsLoading(false);
       })
@@ -34,16 +35,45 @@ const App = () => {
     setSelectedMeal(meal);
   };
 
+  // const saveMealToWeek = () => {
+  //   debugger
+  //   if (selectedMeal && selectedWeek && !weeks[selectedWeek].some(m => m.id === selectedMeal.id)) {
+  //     setWeeks(prevWeeks => ({
+  //       ...prevWeeks,
+  //       [selectedWeek]: [...prevWeeks[selectedWeek], selectedMeal]
+  //     }));
+  //   }
+  //   setSelectedMeal(null);
+  //   setSelectedWeek(null);
+  // };
+  
   const saveMealToWeek = () => {
-    if (selectedMeal && selectedWeek && !weeks[selectedWeek].some(m => m.id === selectedMeal.id)) {
-      setWeeks(prevWeeks => ({
-        ...prevWeeks,
-        [selectedWeek]: [...prevWeeks[selectedWeek], selectedMeal]
-      }));
+    if (!selectedWeek) {
+      alert("Kindly choose a week before adding a meal.");
+      return;
     }
-    setSelectedMeal(null);
-    setSelectedWeek(null);
+  
+    if (!selectedMeal) {
+      alert("No meal selected. Please choose a meal.");
+      return;
+    }
+    setWeeks(prevWeeks => {
+      const currentWeekMeals = prevWeeks[selectedWeek] || [];
+      if (currentWeekMeals.some(meal => meal.id === selectedMeal.id)) {
+        alert("This meal is already added in this week. Kindly choose another week.");
+        return prevWeeks; 
+            }
+  
+      setSelectedMeal(null);
+      setSelectedWeek(null);
+  
+      return {
+        ...prevWeeks,
+        [selectedWeek]: [...currentWeekMeals, selectedMeal]
+      };
+    });
   };
+  
   
   return (
     <div className="app-container">
@@ -51,16 +81,21 @@ const App = () => {
       <h1>Optimized Your Meal</h1>
       <p>Select Meal to Add in Week. You will be able to edit, modify and change the Meal Weeks</p>
       </div>
+      <div className='week-order'>
+          <p>Week Orders</p>
+        </div>
       <div className="tabs">
         <button onClick={() => setActiveTab('all')}>All Meals</button>
         {[1, 2, 3, 4].map(num => (
           <button key={num} onClick={() => setActiveTab(`week${num}`)}>Week {num}</button>
         ))}
       </div>
-
+      <br/>
+      <br/>
       {isLoading ? (
         <Loader /> 
       ) : activeTab === 'all' ? (
+     
         <div className="meal-list">
           {meals.map(meal => (
             <MealCard key={meal.id} meal={meal} onAdd={handleAddMeal} />

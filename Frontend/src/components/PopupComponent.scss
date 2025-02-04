@@ -20,6 +20,39 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      background: rgb(211, 198, 198);
     }
   }
+
+  #cancelbutton {
+    background-color: #ff6895;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+
+    &:hover {
+      background-color: #e84118;
+    }
+    }
+    #addbutton {
+      background-color: green;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+  
+      &:hover {
+        background-color: green;
+      }
+      }
+    
   
