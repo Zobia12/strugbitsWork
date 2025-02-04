@@ -15,15 +15,18 @@
 
 .meal-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); 
+  grid-template-columns: repeat(3, 1fr); 
   gap: 20px;
+  padding: 10px 100px 10px 100px;
   justify-content: center;
 
   @media (max-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);   }
+    padding: 20px;
+    grid-template-columns: repeat(2, 1fr);   }
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);  }
+    padding: 20px;
+    grid-template-columns: repeat(1, 1fr);  }
 }
 .tabs {
   display: flex;
